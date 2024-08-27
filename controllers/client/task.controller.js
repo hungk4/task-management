@@ -70,3 +70,25 @@ module.exports.detail = async (req, res) => {
     });
   }
 };
+
+// [PATCH] /tasks/change-status
+module.exports.changeStatus = async (req, res) => {
+  try {
+    const ids = req.body.ids;
+    const status = req.body.status;
+
+    await Task.updateMany({
+      _id: { $in: ids }
+    }, {
+      status: status
+    });
+  
+    res.json({
+      message: "Cập nhật dữ liệu thành công!"
+    });
+  } catch (error) {
+    res.json({
+      message: "Not Found"
+    });
+  }
+}
