@@ -4,6 +4,10 @@ const Task = require("../../models/task.model");
 // [GET] /tasks
 module.exports.index =  async (req, res) => {
   const find = {
+    $or: [
+      { createdBy: req.user.id},
+      { listUser: req.user.id}
+    ],
     deleted: false
   };
   // Lọc theo trạng thái
